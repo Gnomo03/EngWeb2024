@@ -2,6 +2,10 @@
 
 UC do 3º Ano de Engenharia Informática na Universidade do Minho.
 
+**Sigla:** EW
+
+**Ano:** 2024
+
 ## ALUNO
 
 - **Nome:** David Teixeira
