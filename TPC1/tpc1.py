@@ -1,65 +1,57 @@
 import os
-import xml.etree.ElementTree as ET
-import ruas
 
-class meta:
-    def __init__(self, numero, nome):
-        self.numero = numero
-        self.nome = nome
-    def __repr__(self):
-        return f"meta(numero='{self.numero}', nome='{self.nome}')"
+# Caminho para a pasta que contém os arquivos XML
+pasta_xml = 'MapaRuas-materialBase/texto'
 
-class figura:
-    def __init__(self, id, imagePath, legenda):
-        self.id = id
-        self.imagemPath = imagePath
-        self.legenda = legenda
-    def __repr__(self):
-        return f"figura(imagem='id={self.id}, imagemPath={self.imagemPath}', legenda='{self.legenda}')"
+# Declaração XML padrão e instrução de processamento XSLT
+declaracao_xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
+instrucao_xslt = '<?xml-stylesheet type="text/xsl" href="./transformacao.xsl"?>\n'
 
-class corpo:
-    def __init__(self,  figuras ):
-        self.figuras = figuras
-    def __repr__(self):
-        result = "[\n"
-        for fig in self.figuras:
-            result += f'{fig},\n';
-        result += "]"
-        return result
+# Iniciar a estrutura básica do HTML
+html = """
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Índice das Ruas</title>
+</head>
+<body>
+    <h1>Lista de Ruas</h1>
+    <ul>
+"""
 
-class rua:
-    def __init__(self, meta, corpo ):
-        self.meta = meta
-        self.corpo = corpo
-    def __repr__(self):
-        result=f'rua({self.meta}\n{self.corpo})'
-        return result
+# Percorrer os arquivos na pasta de texto
+for arquivo in os.listdir(pasta_xml):
+    caminho_completo = os.path.join(pasta_xml, arquivo)
+    # Verificar se o arquivo não é um dos ignorados e segue o padrão desejado
+    if arquivo.startswith("MRB-") and arquivo.endswith(".xml"):
+        with open(caminho_completo, 'r+') as f:
+            conteudo = f.readlines()
+            
+            # Inserir declaração XML e instrução XSLT conforme necessário
+            if not conteudo[0].startswith('<?xml'):
+                conteudo.insert(0, declaracao_xml)
+            if not conteudo[1].startswith('<?xml-stylesheet'):
+                conteudo.insert(1, instrucao_xslt)
+            
+            f.seek(0)
+            f.writelines(conteudo)
+            f.truncate()
 
+        # Extrair o nome da rua do nome do arquivo para o índice HTML
+        nome_rua = arquivo.split('-')[2].split('.')[0]  # Remove a extensão e o prefixo
+        # Adicionar um item de lista com link para o arquivo XML
+        html += f'        <li><a href="{caminho_completo}">{nome_rua}</a></li>\n'
 
-# Diretório onde estão os arquivos XML
-DIRECTORY = 'data/texto'
-file1=DIRECTORY + "/MRB-01-RuaDoCampo.xml"
+# Finalizar a estrutura do HTML
+html += """
+    </ul>
+</body>
+</html>
+"""
 
-x = ruas.parse(file1)
+# Escrever o HTML em um arquivo
+with open('index.html', 'w') as f:
+    f.write(html)
 
-tree = ET.parse(file1)
-rua_elem = tree.getroot()
-
-meta_elem = rua_elem.find('meta')
-corpo_elem = rua_elem.find('corpo')
-
-meta = meta(meta_elem.find('número').text, meta_elem.find('nome').text)
-
-figuras = []
-for figura_elem in corpo_elem.findall('figura'):
-    image = figura_elem.find('imagem')
-    id = figura_elem.attrib.get("id")
-    imagePath = image.get("path")
-    legenda = figura_elem.find('legenda').text
-    fig = figura(id, imagePath, legenda )
-    figuras.append(fig)
-
-cp = corpo(figuras)
-rua=rua( meta, cp )
-
-print(rua)
+print('Site HTML gerado com sucesso.')
