@@ -1,36 +1,65 @@
-from flask import Flask, render_template_string, send_file
 import os
 import xml.etree.ElementTree as ET
+import ruas
 
-app = Flask(__name__)
+class meta:
+    def __init__(self, numero, nome):
+        self.numero = numero
+        self.nome = nome
+    def __repr__(self):
+        return f"meta(numero='{self.numero}', nome='{self.nome}')"
+
+class figura:
+    def __init__(self, id, imagePath, legenda):
+        self.id = id
+        self.imagemPath = imagePath
+        self.legenda = legenda
+    def __repr__(self):
+        return f"figura(imagem='id={self.id}, imagemPath={self.imagemPath}', legenda='{self.legenda}')"
+
+class corpo:
+    def __init__(self,  figuras ):
+        self.figuras = figuras
+    def __repr__(self):
+        result = "[\n"
+        for fig in self.figuras:
+            result += f'{fig},\n';
+        result += "]"
+        return result
+
+class rua:
+    def __init__(self, meta, corpo ):
+        self.meta = meta
+        self.corpo = corpo
+    def __repr__(self):
+        result=f'rua({self.meta}\n{self.corpo})'
+        return result
+
 
 # Diretório onde estão os arquivos XML
-DIRECTORY = 'MapaRuas-materialBase/texto'
+DIRECTORY = 'data/texto'
+file1=DIRECTORY + "/MRB-01-RuaDoCampo.xml"
 
-# Lista de nomes de arquivos para criar arquivos XML
-file_names = ['file1', 'file2', 'file3']  # Exemplo, substituir pela lógica de obtenção de nomes
+x = ruas.parse(file1)
 
-def create_xml_files(names):
-    for name in names:
-        root = ET.Element("root")
-        ET.SubElement(root, "file").text = name
-        tree = ET.ElementTree(root)
-        tree.write(os.path.join(DIRECTORY, f"{name}.xml"))
+tree = ET.parse(file1)
+rua_elem = tree.getroot()
 
-@app.route('/')
-def list_xml_files():
-    create_xml_files(file_names)
+meta_elem = rua_elem.find('meta')
+corpo_elem = rua_elem.find('corpo')
 
-    files = [f for f in os.listdir(DIRECTORY) if f.endswith('.xml')]
-    files_with_links = [f'<a href="/file/{f}">{f}</a>' for f in files]
-    return '<br>'.join(files_with_links)
+meta = meta(meta_elem.find('número').text, meta_elem.find('nome').text)
 
-@app.route('/file/<filename>')
-def show_file_content(filename):
-    file_path = os.path.join(DIRECTORY, filename)
-    if os.path.exists(file_path) and file_path.endswith('.xml'):
-        return send_file(file_path)
-    return 'File not found', 404
+figuras = []
+for figura_elem in corpo_elem.findall('figura'):
+    image = figura_elem.find('imagem')
+    id = figura_elem.attrib.get("id")
+    imagePath = image.get("path")
+    legenda = figura_elem.find('legenda').text
+    fig = figura(id, imagePath, legenda )
+    figuras.append(fig)
 
-app.run(host="0.0.0.0", port=80)
+cp = corpo(figuras)
+rua=rua( meta, cp )
 
+print(rua)

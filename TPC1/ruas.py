@@ -2,17 +2,17 @@
 # -*- coding: utf-8 -*-
 
 #
-# Generated Wed Feb  7 19:55:07 2024 by generateDS.py version 2.43.3.
-# Python 3.10.12 (main, Jun 11 2023, 05:26:28) [GCC 11.4.0]
+# Generated Sat Feb 10 19:00:54 2024 by generateDS.py version 2.43.3.
+# Python 3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]
 #
 # Command line options:
-#   ('-o', 'MRBRua.py')
+#   ('-o', 'ruas.py')
 #
 # Command line arguments:
-#   MapaRuas-materialBase/MRB-rua.xsd
+#   data/MRB-rua.xsd
 #
 # Command line:
-#   /usr/local/bin/generateDS -o "MRBRua.py" MapaRuas-materialBase/MRB-rua.xsd
+#   /usr/local/bin/generateDS.py -o "ruas.py" data/MRB-rua.xsd
 #
 # Current working directory (os.getcwd()):
 #   TPC1
@@ -2934,8 +2934,8 @@ def parseLiteral(inFileName, silence=False, print_warnings=True):
         doc = None
         rootNode = None
     if not silence:
-        sys.stdout.write('#from MRBRua import *\n\n')
-        sys.stdout.write('import MRBRua as model_\n\n')
+        sys.stdout.write('#from ruas import *\n\n')
+        sys.stdout.write('import ruas as model_\n\n')
         sys.stdout.write('rootObj = model_.rootClass(\n')
         rootObj.exportLiteral(sys.stdout, 0, name_=rootTag)
         sys.stdout.write(')\n')
