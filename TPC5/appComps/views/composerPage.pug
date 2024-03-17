@@ -1,0 +1,28 @@
+extends layout
+
+block content  
+    .w3-card-4
+        .w3-container.w3-teal
+            h1 Compositor #{composer.id}
+            
+        .w3-container.w3-margin-8
+            ul.w3-ul
+                li 
+                    b Nome:  #{composer.nome}
+                li 
+                    b Número:  #{composer.id}
+                li
+                    b Biografia:  #{composer.bio}
+                li
+                    b Data de Nascimento:  #{composer.dataNasc}
+                li
+                    b Data de Óbito:  #{composer.dataObito}
+                li
+                    b Periodo: #{composer.periodo}
+
+            footer.w3-container.w3-teal
+                address
+                    a(href="/compositores?_sort=nome") Voltar
+        
+    
+    

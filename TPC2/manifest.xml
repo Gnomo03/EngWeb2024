@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doc>
+    <meta>
+        <title>TPC1:</title>
+        <date>2024-02-24</date>
+        <author>
+            <id>a100554</id>
+            <name>David da Silva Teixeira</name>
+        </author>
+        <uc>
+            <sigla>EW2024</sigla>
+            <nome>Engenharia Web</nome>
+        </uc>
+    </meta>
+    <resumo>
+        <p>Resumir o que foi pedido neste TPC</p>
+        <p> Fazer uma pagina html com um indice com os nomes dos alunos do dataset, sendo que cada nome de aluno possui um link para outra pagina html onde tem informacoes sobre os mesmos. Cada página de aluno possui um link que leva para uma nova página com as informações do curso e instrumento.</p>
+        <p> resumo com <url>link</url><texto>url embutido</texto></p>
+    </resumo>
+    <resultados>
+        <resultado>Ao iniciar o servidor json, deve-se correr o tpc2.js via node.js, ao fazer isso e acessando o link "http://localhost:2000/alunos", torna-se possível acessar o indice dos alunos e acessar as informações dos próprios<resultado>
+        <resultado>Dentro das páginas dos alunos é possível acessar a página do curso de cada aluno e as suas respetivas informações<resultado>
+    </resultados>
+</doc>
