@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doc>
+    <meta>
+        <title>TPC3:</title>
+        <date>2024-03-02</date>
+        <author>
+            <id>a100554</id>
+            <name>David da Silva Teixeira</name>
+        </author>
+        <uc>
+            <sigla>EW2024</sigla>
+            <nome>Engenharia Web</nome>
+        </uc>
+    </meta>
+    <resumo>
+        <p>Resumir o que foi pedido neste TPC</p>
+        <p> Fazer uma pagina html com um indice com os nomes dos filmes, atores e géneros do dataset.</p>
+        <p> resumo com <url>link</url><texto>url embutido</texto></p>
+    </resumo>
+    <resultados>
+        <resultado>Antes de iniciar o servidor json ou correr o server.js pelo node.js, é necessário correr primeiro o json_fixer.py para corrigir o filmes.json.<resultado>
+        <resultado>Depois disso deve-se iniciar o servidor json e correr o server.js via node.js, e ao fazer isso torna-se possivél acessar os links "http://localhost:2000/filmes", "http://localhost:2000/atores" e "http://localhost:2000/generos", que indicam todos os filmes, atores e géneros presentes no dataset<resultado>
+        <resultado>Apartir de cada uma das páginas é possível acessar a página de cada filme, ator e género em específico, bem como as suas informações<resultado>
+        <resultado>Na página de cada filme é possível acessar diretamente a pagina privada de cada ator que participou no filme, bem como a do género do filme.<resultado>
+        <resultado>Na página de cada ator e género, é possível aceder a todos os filmes que tiveram a participação do respetivo ator, bem como dos filmes do dado género.<resultado>
+        <resultado>Além de tudo isto, existe o botão voltar, para voltar uma página atrás de cada operação feita.<resultado>
+    </resultados>
+</doc>
