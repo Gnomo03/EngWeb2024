@@ -1,0 +1,12 @@
+[
+    {
+        "id": "P1",
+        "nome": "Barroco",
+        "numeroCompositores": 89
+    },
+    {
+        "id": "P2",
+        "nome": "Renascimento",
+        "numeroCompositores": 79
+    }
+]
