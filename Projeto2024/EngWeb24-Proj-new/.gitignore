@@ -1,0 +1,9 @@
+
+inquiricoes.json
+relacoes.json
+types.json
+unique_values.json
+apiServer/node_modules
+interfaceServer/node_modules
+auth/node_modules
+authServer/node_modules
