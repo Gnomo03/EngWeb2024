@@ -1,0 +1,37 @@
+version: "3"
+services:
+  app:
+    container_name: interfaceServer
+    build: ./interfaceServer
+    restart: always
+    ports:
+      - "8888:8888"
+
+  data_server:
+    container_name: apiServer
+    build: ./apiServer
+    restart: always
+    ports:
+      - "7777:7777"
+    depends_on:
+      - mongodb
+
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    restart: always
+    volumes:
+      - projData:/data/db
+
+  auth_server:
+    container_name: authServer
+    build: ./authServer
+    restart: always
+    ports:
+      - "7778:7778"
+    depends_on:
+      - mongodb
+
+volumes:
+  projData:
+  

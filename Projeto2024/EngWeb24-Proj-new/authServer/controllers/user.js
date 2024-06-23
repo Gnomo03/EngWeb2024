@@ -53,9 +53,14 @@ module.exports.addUser = u => {
 }
 
 module.exports.loginUser = (username, password, data) => {
-    return User.updateOne({username: username, password: password}, {$set: {lastAccess: data}})
-        .then(resposta => {
-            return resposta
+    return User.findOne({username : username, password: password})
+        .then(user => {
+            if (user) {
+                return User.updateOne({username: username, password: password}, {$set: {lastAccess: data}})
+                    .then(() => user)
+            } else {
+                return null;
+            }
         })
         .catch(erro => {
             return erro

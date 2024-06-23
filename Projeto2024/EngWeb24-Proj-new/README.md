@@ -13,7 +13,7 @@ Este documento serve como relatório para o projeto da Unidade Curricular de Eng
 
 Ao longo deste relatório vamos explicar o nosso raciocínio, as nossas interpretações e a nossa resolução do problema dado no enunciado.
 
-O relatório está dividido em 5 partes, cada uma das pastas deste repositório representa uma divisão do trabalho.
+O relatório está dividido em 4 partes, cada uma das pastas deste repositório representa uma divisão do trabalho.
 
 - São elas respetivamente:
 1. [Estrutura/Arquitetura da plataforma](https://github.com/jmns01/EngWeb24-Proj/blob/andre/arquitetura.png)

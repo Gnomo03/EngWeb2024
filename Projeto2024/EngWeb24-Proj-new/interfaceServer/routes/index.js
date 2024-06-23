@@ -27,6 +27,8 @@ const validate = ajv.compile(schema);
 /* GET Página principal */
 router.get('/home', function(req, res){
   var user = retrieve_user_data(req.cookies.cookie_user_data)
+  let decoded = jwt.decode(req.cookies.cookie_user_data)
+  console.log(decoded)
   console.log(req.cookies)
   console.log(req.cookies.cookie_user_data)
   console.log(user)
@@ -472,7 +474,7 @@ router.get('/editUser/:username', permissions.is_admin, function(req, res){
 router.post('/editUser/:username', permissions.is_admin, function(req, res){
   const {id, name, username, password, level, dateCreated, lastAccess} = req.body;
   console.log(req.body);
-  axios.put(`http://localhost:7778/users/edit/user/${req.params.username}`, {_id: id, name: name, username: username, password: password, level: level, dateCreated: dateCreated, lastAccess: lastAccess, active: true})
+  axios.put(`http://localhost:7778/users/edit/user/${req.params.username}`, {_id: id, name: name, username: username, password: password, level: level, dateCreated: dateCreated, lastAccess: lastAccess})
   .then(response => {
     console.log('Utilizador atualizado com sucesso');
     res.redirect(`/editUser/${username}`);
@@ -507,10 +509,13 @@ router.post('/login', function (req, res) {
       req.session.error = 'Username ou password incorretos.';
       res.redirect('/login');
     }
+    if(response.status == 500){
+      req.session.error = 'Username ou password incorretos.';
+      res.redirect('/login');
+    }
   })
   .catch(error => {
     console.error('Erro ao verificar credenciais:', error);
-    req.session.error = 'Ocorreu um erro. Por favor, tente novamente.';
     res.redirect('/login');
   });
 });

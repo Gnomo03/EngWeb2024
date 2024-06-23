@@ -141,10 +141,9 @@
           "password": { "type": "string" },
           "level": { "type": "string" },
           "dateCreated": { "type": "string" },
-          "lastAccess": { "type": "string" },
-          "active": { "type": "boolean" }
+          "lastAccess": { "type": "string" }
         },
-        "required": ["_id", "name", "username", "password", "level", "dateCreated", "lastAccess", "active"]
+        "required": ["_id", "name", "username", "password", "level", "dateCreated", "lastAccess"]
       }
     }
   }

@@ -75,16 +75,17 @@ router.post('/register',function(req, res) {
 
 router.post('/login', async function(req, res, next) {
   var d = new Date().toISOString().substring(0, 16)
-  User.loginUser(req.body.username, req.body.password, d)
+  User.loginUser(req.body.params.username, req.body.params.password, d)
   .then(data => {
+      console.log(data)
       if(data != null){
         const token = generate_token({name: data.name, username: data.username, level: data.level})
         res.jsonp({name: data.name, username: data.username, level: data.level, token: token})                        
       }else{
-          res.sendStatus(401)
+          res.status(500).send("Erro no login")
       }
   })
-  .catch(error => res.jsonp(error));
+  .catch(error => res.status(500).jsonp(error));
 });
 
 router.delete('/delete/user/:username', auth.is_admin,function(req,res){

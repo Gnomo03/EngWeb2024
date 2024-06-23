@@ -8,7 +8,6 @@ var userSchema = new mongoose.Schema({
     level: String, 
     dateCreated: Date, 
     lastAccess: Date, 
-    active: Boolean
 },{versionKey: false})
 
 userSchema.plugin(passportLocalMongoose)
